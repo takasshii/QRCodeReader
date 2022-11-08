@@ -11,9 +11,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.qrcodereader.ui.theme.QRCodeReaderTheme
+import com.journeyapps.barcodescanner.ScanOptions
+import android.widget.Toast
+import androidx.compose.material.TextButton
+import com.journeyapps.barcodescanner.ScanContract
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val barcodeLauncher = registerForActivityResult(
+            ScanContract()
+        ) { result ->
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+
+        // Launch
+        fun onButtonClick() {
+            val options = ScanOptions().setOrientationLocked(true)
+            barcodeLauncher.launch(options)
+        }
+
         super.onCreate(savedInstanceState)
         setContent {
             QRCodeReaderTheme {
@@ -22,22 +45,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    TextButton(onClick = { onButtonClick() }) {
+                        Text(text = "QRCodeReaderを起動する")
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     QRCodeReaderTheme {
-        Greeting("Android")
+
     }
 }
