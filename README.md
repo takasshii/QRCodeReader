@@ -13,4 +13,4 @@ QRコードを読み取ることで施錠をすることができます。
 - Coroutine
 - Flow
 
-- Camera X
+- zxing-android-embedded
