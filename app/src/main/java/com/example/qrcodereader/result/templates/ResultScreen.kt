@@ -3,6 +3,7 @@ package com.example.qrcodereader.result.templates
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,18 +15,22 @@ import com.example.qrcodereader.domain.QRCodeStringResult
 @Composable
 fun ResultScreen(
     stringResult: QRCodeStringResult,
-    popBackStack: () -> Unit,
+    proceeding: Boolean,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        when (stringResult) {
-            is QRCodeStringResult.Text -> {
-                Text(text = stringResult.text)
-            }
-            is QRCodeStringResult.Url -> {
-                WebViewWidget(url = stringResult.url)
+        if (proceeding) {
+            CircularProgressIndicator()
+        } else {
+            when (stringResult) {
+                is QRCodeStringResult.Text -> {
+                    Text(text = stringResult.text)
+                }
+                is QRCodeStringResult.Url -> {
+                    WebViewWidget(url = stringResult.url)
+                }
             }
         }
     }

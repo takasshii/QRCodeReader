@@ -22,10 +22,6 @@ fun QRNavHost(
                 navController.navigateToResult()
             }
         )
-        resultScreen(
-            popBackStack = {
-                navController.popBackStack()
-            }
-        )
+        resultScreen()
     }
 }
