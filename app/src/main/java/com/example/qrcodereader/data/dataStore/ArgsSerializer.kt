@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 
 class ArgsSerializer @Inject constructor() : Serializer<QRCodeStringResultPreference> {
-    override val defaultValue: QRCodeStringResultPreference = QRCodeStringResultPreference.getDefaultInstance()
+    override val defaultValue: QRCodeStringResultPreference =
+        QRCodeStringResultPreference.getDefaultInstance()
 
     override suspend fun readFrom(input: InputStream): QRCodeStringResultPreference {
         try {
