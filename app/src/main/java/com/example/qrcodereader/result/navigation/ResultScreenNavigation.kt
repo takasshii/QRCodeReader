@@ -1,6 +1,8 @@
 package com.example.qrcodereader.result.navigation
 
-import androidx.navigation.*
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.example.qrcodereader.result.route.ResultRoute
 
@@ -10,14 +12,10 @@ fun NavController.navigateToResult(navOptions: NavOptions? = null) {
     this.navigate(resultNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.resultScreen(
-    popBackStack : () -> Unit,
-) {
+fun NavGraphBuilder.resultScreen() {
     composable(
         route = resultNavigationRoute
     ) {
-        ResultRoute(
-            popBackStack = popBackStack
-        )
+        ResultRoute()
     }
 }

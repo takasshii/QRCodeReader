@@ -9,13 +9,12 @@ import com.example.qrcodereader.result.templates.ResultScreen
 
 @Composable
 fun ResultRoute(
-    popBackStack: () -> Unit,
     viewModel: ResultViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     ResultScreen(
         stringResult = uiState.result,
-        popBackStack = { popBackStack() },
+        proceeding = uiState.proceeding,
     )
 }
