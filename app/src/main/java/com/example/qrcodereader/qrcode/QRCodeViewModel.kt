@@ -92,8 +92,12 @@ class QRCodeViewModel @Inject constructor(
     }
 
     fun pushArgs(args: QRCodeStringResult) {
+        // ローディング開始
+        _state.value = _state.value.copy(proceeding = true)
         viewModelScope.launch {
             argsRepository.writeQRCodeResultArgs(args)
         }
+        // ローディング開始
+        _state.value = _state.value.copy(proceeding = false)
     }
 }

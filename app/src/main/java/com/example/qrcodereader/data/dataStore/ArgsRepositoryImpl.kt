@@ -24,11 +24,11 @@ class ArgsRepositoryImpl @Inject constructor(
                 argsDataStore.updateData { currentArgs ->
                     when (qrCodeStringResult) {
                         is QRCodeStringResult.Url -> {
-                            currentArgs.toBuilder().clearUrl().addAllUrl(qrCodeStringResult.url)
+                            currentArgs.toBuilder().clear().addAllUrl(qrCodeStringResult.url)
                                 .build()
                         }
                         is QRCodeStringResult.Text -> {
-                            currentArgs.toBuilder().clearText().setText(qrCodeStringResult.text)
+                            currentArgs.toBuilder().clear().setText(qrCodeStringResult.text)
                                 .build()
                         }
                     }

@@ -3,7 +3,6 @@ package com.example.qrcodereader.result.templates
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,7 +22,7 @@ fun ResultScreen(
         color = MaterialTheme.colors.background
     ) {
         if (proceeding) {
-            CircularProgressIndicator()
+            Text(text = "読み込み中です。")
         } else {
             when (stringResult) {
                 is QRCodeStringResult.Text -> {

@@ -4,6 +4,7 @@ import android.media.Image
 import com.example.qrcodereader.domain.QRCodeStringResult
 
 data class QRCodeUiState(
+    val proceeding : Boolean,
     val stringResult: QRCodeStringResult?,
     val image: Image?,
     val error: String,
@@ -11,6 +12,7 @@ data class QRCodeUiState(
 ) {
     companion object {
         val INITIAL = QRCodeUiState(
+            proceeding = false,
             stringResult = null,
             image = null,
             error = "",

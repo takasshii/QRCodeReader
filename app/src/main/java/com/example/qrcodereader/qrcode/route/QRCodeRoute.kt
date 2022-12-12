@@ -3,6 +3,7 @@ package com.example.qrcodereader.qrcode.route
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.*
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
@@ -41,6 +42,8 @@ fun QRCodeRoute(
 
     QRCodeScreen(
         onButtonClick = { onButtonClick() },
+        modifier = Modifier,
+        proceeding = uiState.proceeding,
     )
 
     LaunchedEffect(key1 = uiState.events) {

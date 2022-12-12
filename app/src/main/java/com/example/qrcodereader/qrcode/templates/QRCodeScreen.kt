@@ -10,14 +10,20 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun QRCodeScreen(
+    modifier: Modifier,
     onButtonClick: () -> Unit,
+    proceeding: Boolean,
 ) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        TextButton(onClick = { onButtonClick() }) {
-            Text(text = "QRCodeReaderを起動する")
+        if (proceeding) {
+            Text(text = "書き込み中です。")
+        } else {
+            TextButton(onClick = { onButtonClick() }) {
+                Text(text = "QRCodeReaderを起動する")
+            }
         }
     }
 }
