@@ -1,4 +1,4 @@
-package com.example.qrcodereader.qrCode.route
+package com.example.qrcodereader.qrcode.route
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -7,10 +7,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.*
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.qrcodereader.qrCode.QRCodeEvent
-import com.example.qrcodereader.qrCode.QRCodeUiState
-import com.example.qrcodereader.qrCode.QRCodeViewModel
-import com.example.qrcodereader.qrCode.templates.QRCodeScreen
+import com.example.qrcodereader.qrcode.QRCodeEvent
+import com.example.qrcodereader.qrcode.QRCodeUiState
+import com.example.qrcodereader.qrcode.QRCodeViewModel
+import com.example.qrcodereader.qrcode.templates.QRCodeScreen
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 
@@ -58,9 +58,8 @@ fun QRCodeRoute(
                     viewModel.consumeEvent(event)
                 }
                 is QRCodeUiState.Event.NextPage -> {
-                    Log.v("Debug", "NextPage")
-                    navigateToResult()
                     viewModel.pushArgs(event.stringResult)
+                    navigateToResult()
                     // イベントを消費
                     viewModel.consumeEvent(event)
                 }

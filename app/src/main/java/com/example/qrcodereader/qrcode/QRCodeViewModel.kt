@@ -1,4 +1,4 @@
-package com.example.qrcodereader.qrCode
+package com.example.qrcodereader.qrcode
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

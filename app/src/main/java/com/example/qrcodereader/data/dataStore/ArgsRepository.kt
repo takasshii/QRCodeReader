@@ -10,7 +10,7 @@ interface ArgsRepository {
 }
 
 // 結果を返すクラス
-sealed class ArgsResult<out R> {
+sealed class ArgsResult<out T> {
     // 成功した場合
     data class Success<out T>(val data: T) : ArgsResult<T>()
 
