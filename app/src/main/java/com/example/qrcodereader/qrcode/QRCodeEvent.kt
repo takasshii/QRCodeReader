@@ -1,4 +1,4 @@
-package com.example.qrcodereader.qrCode
+package com.example.qrcodereader.qrcode
 
 sealed interface QRCodeEvent {
     data class StringResult(

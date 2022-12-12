@@ -16,6 +16,7 @@ import com.example.qrcodereader.domain.QRCodeStringResult
 fun ResultScreen(
     stringResult: QRCodeStringResult,
     proceeding: Boolean,
+    modifier: Modifier,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

@@ -1,4 +1,4 @@
-package com.example.qrcodereader.qrCode.templates
+package com.example.qrcodereader.qrcode.templates
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
