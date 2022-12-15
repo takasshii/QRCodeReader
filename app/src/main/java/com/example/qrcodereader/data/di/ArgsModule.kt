@@ -5,9 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.example.qrcodereader.QRCodeStringResultPreference
-import com.example.qrcodereader.data.dataStore.ArgsRepository
-import com.example.qrcodereader.data.dataStore.ArgsRepositoryImpl
-import com.example.qrcodereader.data.dataStore.ArgsSerializer
+import com.example.qrcodereader.data.args.ArgsRepository
+import com.example.qrcodereader.data.args.ArgsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -15,22 +14,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-
-@Module
-@InstallIn(SingletonComponent::class)
-object ArgsModule {
-    @Provides
-    @Singleton
-    fun providesUserPreferencesDataStore(
-        @ApplicationContext context: Context,
-        argsSerializer: ArgsSerializer
-    ): DataStore<QRCodeStringResultPreference> =
-        DataStoreFactory.create(
-            serializer = argsSerializer,
-        ) {
-            context.dataStoreFile("args.pb")
-        }
-}
 
 @Module
 @InstallIn(SingletonComponent::class)

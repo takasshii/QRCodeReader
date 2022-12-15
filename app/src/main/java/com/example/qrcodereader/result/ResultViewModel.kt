@@ -2,9 +2,8 @@ package com.example.qrcodereader.result
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.qrcodereader.data.dataStore.ArgsRepository
-import com.example.qrcodereader.data.dataStore.ArgsResult
-import com.example.qrcodereader.domain.QRCodeStringResult
+import com.example.qrcodereader.data.args.ArgsRepository
+import com.example.qrcodereader.data.args.ArgsResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,15 +32,9 @@ class ResultViewModel @Inject constructor(
             _state.value = when (args) {
                 is ArgsResult.Success -> {
                     //　値をセット
-                    if (!args.data.urlList.isNullOrEmpty()) {
-                        _state.value.copy(
-                            result = QRCodeStringResult.Url(args.data.urlList)
-                        )
-                    } else {
-                        _state.value.copy(
-                            result = QRCodeStringResult.Text(args.data.text)
-                        )
-                    }
+                    _state.value.copy(
+                        result = args.data
+                    )
                 }
                 // エラーが生じていた場合 -> エラーダイアログを表示
                 is ArgsResult.Error -> {

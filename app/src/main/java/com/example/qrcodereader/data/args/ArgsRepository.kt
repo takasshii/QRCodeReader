@@ -1,12 +1,11 @@
-package com.example.qrcodereader.data.dataStore
+package com.example.qrcodereader.data.args
 
-import com.example.qrcodereader.QRCodeStringResultPreference
 import com.example.qrcodereader.domain.QRCodeStringResult
 
 interface ArgsRepository {
-    suspend fun writeQRCodeResultArgs(qrCodeStringResult: QRCodeStringResult)
+    suspend fun writeQRCodeResultArgs(qrCodeStringResult: QRCodeStringResult): ArgsResult<Unit>
 
-    suspend fun getQRCodeResultArgs(): ArgsResult<QRCodeStringResultPreference>
+    suspend fun getQRCodeResultArgs(): ArgsResult<QRCodeStringResult>
 }
 
 // 結果を返すクラス

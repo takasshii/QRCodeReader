@@ -3,7 +3,8 @@ package com.example.qrcodereader.qrcode
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.qrcodereader.data.dataStore.ArgsRepository
+import com.example.qrcodereader.data.args.ArgsRepository
+import com.example.qrcodereader.data.args.ArgsResult
 import com.example.qrcodereader.domain.QRCodeStringResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -59,11 +60,6 @@ class QRCodeViewModel @Inject constructor(
                 // 値をセット
                 _state.value.copy(events = newEvents)
             }
-            else -> {
-                _state.value.copy(
-                    error = "対応していないファイル形式です"
-                )
-            }
         }
     }
 
@@ -93,7 +89,14 @@ class QRCodeViewModel @Inject constructor(
 
     fun pushArgs(args: QRCodeStringResult) {
         viewModelScope.launch {
-            argsRepository.writeQRCodeResultArgs(args)
+            val result = argsRepository.writeQRCodeResultArgs(args)
+            if (result is ArgsResult.Error) {
+                // ViewModelイベント発行
+                val newEvents =
+                    _state.value.events.plus(QRCodeUiState.Event.Error(result.exception.toString()))
+                // 値をセット
+                _state.value.copy(events = newEvents)
+            }
         }
     }
 }
