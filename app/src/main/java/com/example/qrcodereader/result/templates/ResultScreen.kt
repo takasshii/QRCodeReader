@@ -19,7 +19,7 @@ fun ResultScreen(
     modifier: Modifier,
 ) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
         if (proceeding) {

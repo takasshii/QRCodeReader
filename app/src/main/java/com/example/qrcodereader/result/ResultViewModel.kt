@@ -38,7 +38,7 @@ class ResultViewModel @Inject constructor(
                     _state.value.copy(error = it.toString())
                 },
             )
-            // ローディングを終了
+            // ローディング終了
             _state.value = _state.value.copy(proceeding = false)
         }
     }

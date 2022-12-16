@@ -22,6 +22,8 @@ fun QRCodeRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    var showDialog by remember { mutableStateOf(false) }
+
     val launcher = rememberLauncherForActivityResult(ScanContract()) {
         if (it.contents != null) {
             viewModel.dispatch(
@@ -39,8 +41,17 @@ fun QRCodeRoute(
         launcher.launch(options)
     }
 
+    fun dismissDialog() {
+        showDialog = false
+    }
+
     QRCodeScreen(
         onButtonClick = { onButtonClick() },
+        showDialog = showDialog,
+        dismissDialog = { dismissDialog() },
+        exception = uiState.error,
+        retry = { uiState.stringResult?.let { viewModel.nextPage(it) } },
+        proceeding = uiState.proceeding
     )
 
     LaunchedEffect(key1 = uiState.events) {
@@ -54,6 +65,7 @@ fun QRCodeRoute(
                     }
                 }
                 is QRCodeUiState.Event.Error -> {
+                    showDialog = true
                     // イベントを消費
                     viewModel.consumeEvent(event)
                 }

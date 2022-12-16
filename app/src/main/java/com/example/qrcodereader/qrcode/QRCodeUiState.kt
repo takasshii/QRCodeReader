@@ -8,6 +8,7 @@ data class QRCodeUiState(
     val image: Image?,
     val error: String,
     val events: List<Event>,
+    val proceeding: Boolean
 ) {
     companion object {
         val INITIAL = QRCodeUiState(
@@ -15,6 +16,7 @@ data class QRCodeUiState(
             image = null,
             error = "",
             events = emptyList(),
+            proceeding = false,
         )
     }
 
