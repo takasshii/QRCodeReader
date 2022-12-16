@@ -20,27 +20,27 @@ class ArgsRepositoryImpl @Inject constructor(
 
     private var latestArgs: QRCodeStringResult? = null
 
-    override suspend fun writeQRCodeResultArgs(qrCodeStringResult: QRCodeStringResult): ArgsResult<Unit> =
+    override suspend fun writeQRCodeResultArgs(qrCodeStringResult: QRCodeStringResult): Result<Unit> =
         withContext(ioDispatcher) {
             try {
                 latestArgsMutex.withLock {
                     latestArgs = qrCodeStringResult
                 }
-                ArgsResult.Success(data = Unit)
+                Result.success(Unit)
             } catch (exception: Exception) {
-                ArgsResult.Error(exception = exception)
+                Result.failure(exception)
             }
         }
 
-    override suspend fun getQRCodeResultArgs(): ArgsResult<QRCodeStringResult> =
+    override suspend fun getQRCodeResultArgs(): Result<QRCodeStringResult> =
         withContext(Dispatchers.IO) {
             try {
                 val args = requireNotNull(latestArgs) {
                     "引数が正しくセットされていません"
                 }
-                ArgsResult.Success(data = args)
+                Result.success(args)
             } catch (exception: Exception) {
-                ArgsResult.Error(exception = exception)
+                Result.failure(exception)
             }
         }
 }

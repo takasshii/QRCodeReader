@@ -3,7 +3,6 @@ package com.example.qrcodereader.result
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.qrcodereader.data.args.ArgsRepository
-import com.example.qrcodereader.data.args.ArgsResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,19 +28,16 @@ class ResultViewModel @Inject constructor(
         viewModelScope.launch {
             val args = argsRepository.getQRCodeResultArgs()
             // レスポンスに応じてLiveDataに値を格納
-            _state.value = when (args) {
-                is ArgsResult.Success -> {
-                    //　値をセット
+            _state.value = args.fold(
+                onSuccess = {
                     _state.value.copy(
-                        result = args.data
+                        result = it
                     )
-                }
-                // エラーが生じていた場合 -> エラーダイアログを表示
-                is ArgsResult.Error -> {
-                    // 値をセット
-                    _state.value.copy(error = args.exception.toString())
-                }
-            }
+                },
+                onFailure = {
+                    _state.value.copy(error = it.toString())
+                },
+            )
             // ローディングを終了
             _state.value = _state.value.copy(proceeding = false)
         }
