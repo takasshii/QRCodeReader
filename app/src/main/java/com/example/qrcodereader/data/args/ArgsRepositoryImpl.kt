@@ -1,5 +1,6 @@
 package com.example.qrcodereader.data.args
 
+import android.util.Log
 import com.example.qrcodereader.core.Dispatcher
 import com.example.qrcodereader.core.QRDispatchers
 import com.example.qrcodereader.domain.QRCodeStringResult
@@ -30,7 +31,7 @@ class ArgsRepositoryImpl @Inject constructor(
                     }
                     Result.success(Unit)
                 } catch (exception: Exception) {
-                    Result.failure(exception)
+                    Log.e("Args", exception.toString())
                 }
             }
             Result.failure(IOException("引数の書き込みに失敗しました"))
@@ -38,16 +39,13 @@ class ArgsRepositoryImpl @Inject constructor(
 
     override suspend fun getQRCodeResultArgs(): Result<QRCodeStringResult> =
         withContext(Dispatchers.IO) {
-            repeat(5) {
-                try {
-                    val args = requireNotNull(latestArgs) {
-                        "引数が正しくセットされていません"
-                    }
-                    Result.success(args)
-                } catch (exception: Exception) {
-                    Result.failure(exception)
+            try {
+                val args = requireNotNull(latestArgs) {
+                    "引数が正しくセットされていません"
                 }
+                Result.success(args)
+            } catch (exception: Exception) {
+                Result.failure(exception)
             }
-            Result.failure(IOException("引数の読み込みに失敗しました"))
         }
 }
